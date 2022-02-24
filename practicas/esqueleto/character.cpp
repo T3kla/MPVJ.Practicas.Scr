@@ -23,14 +23,29 @@ void Character::OnStop()
 
 void Character::OnUpdate(float step)
 {
+    // Update Position
+    auto newPos = GetLoc() + GetLinearVelocity() * step;
+    SetLoc(newPos);
+
+    // Update Velocity
+    const USVec2D accelerationDir = {0.f, -1.f};
+    const float accelerationMag = 10.5f;
+    auto vel = GetLinearVelocity();
+    vel = vel + accelerationDir * accelerationMag * step;
+    SetLinearVelocity(vel.mX, vel.mY);
 }
 
 void Character::DrawDebug()
 {
     MOAIGfxDevice &gfxDevice = MOAIGfxDevice::Get();
-    gfxDevice.SetPenColor(0.0f, 0.0f, 1.0f, 0.5f);
+    gfxDevice.SetPenColor(1.0f, 1.0f, 0.0f, 0.5f);
 
-    // MOAIDraw::DrawPoint(0.0f, 0.0f);
+    // Render Velocity
+    auto v0 = GetLoc();
+    auto v1 = v0 + GetLinearVelocity();
+    MOAIDraw::DrawLine(v0, v1);
+    MOAIDraw::DrawEllipseFill(v0.mX, v0.mY, 5.f, 5.f, 12);
+    MOAIDraw::DrawEllipseFill(v1.mX, v1.mY, 3.f, 3.f, 12);
 }
 
 // Lua configuration
