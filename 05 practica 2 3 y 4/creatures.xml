@@ -1,0 +1,8 @@
+<creatures>
+    <creature_1 name = "grunt">
+        <image> "creatures/grunt.png" </image>
+    </creature_1>
+    <creature_1 name = "dragon">
+        <image> "creatures/dragon.png" </image>
+    </creature_1>
+</creatures>
