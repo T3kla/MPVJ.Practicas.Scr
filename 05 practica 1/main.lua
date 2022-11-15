@@ -19,7 +19,7 @@ function onDraw()
     -- Empieza tu c�digo, que debe emplear la funcion pintarPunto
     for i = 0, 100, 1 do
         for j = 0, 100, 1 do
-            local p = { x = i + 128, y = j + 128}
+            local p = { x = i + 128, y = j + 128 }
             pintarPunto(p)
         end
     end
@@ -38,17 +38,13 @@ function onClickRight(down)
     end
 end
 
-
 function onMouseMove(posX, posY)
     --print("Mouse Moved to " .. posX .. ","..posY)
 end
 
 function onKeyPress(key, down)
-    print("Key pressed: "..key)
+    print("Key pressed: " .. key)
 end
-
-
 
 callbackConfiguration(onClickLeft, onClickRight, onMouseMove, onKeyPress, onDraw, window_layer)
 mainLoop()
-

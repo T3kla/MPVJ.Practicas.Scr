@@ -1,22 +1,22 @@
 creatures = {}
-creatures.grunt = { image = "grunt.png", dimX = 64, dimY = 64}
-creatures.mage = { image = "mago.png", dimX = 24, dimY = 24}
-creatures.griphon = { image = "grifo.png", dimX = 128, dimY = 128}
-creatures.dragon = { image = "dragon.png", dimX = 64, dimY = 64}
-creatures.health_bar = {image = "health_bar.png", dimX = 256, dimY = 119}
-creatures.wow = {image = "wow.png", dimX = 1024, dimY = 768}
+creatures.grunt = { image = "grunt.png", dimX = 64, dimY = 64 }
+creatures.mage = { image = "mago.png", dimX = 24, dimY = 24 }
+creatures.griphon = { image = "grifo.png", dimX = 128, dimY = 128 }
+creatures.dragon = { image = "dragon.png", dimX = 64, dimY = 64 }
+creatures.health_bar = { image = "health_bar.png", dimX = 256, dimY = 119 }
+creatures.wow = { image = "wow.png", dimX = 1024, dimY = 768 }
 
 function drawCreature(the_layer, name, posX, posY)
     posX = posX or 0
     posY = posY or 0
     gfxQuad = MOAIGfxQuad2D.new()
-    
+
     texture_name = creatures[name].image
-  
+
     gfxQuad:setTexture(texture_name)
     gfxQuad:setRect(0, 0, creatures[name].dimX, creatures[name].dimY)
     gfxQuad:setUVRect(0, 0, 1, 1)
-  
+
     prop = MOAIProp2D.new()
     prop:setDeck(gfxQuad)
     prop:setLoc(posX, posY)
@@ -26,7 +26,7 @@ end
 
 function drawPoint(x, y)
     r, g, b, a = 1, 1, 0, 1
-    MOAIGfxDevice.setPenColor (r, g, b, a)
+    MOAIGfxDevice.setPenColor(r, g, b, a)
     MOAIDraw.drawPoints(x, y)
 end
 
@@ -37,7 +37,7 @@ end
 function getPropPosition(prop)
     return prop:getLoc()
 end
-    
+
 function setPropPosition(prop, x, y)
     prop:setLoc(x, y)
 end
@@ -53,7 +53,7 @@ function prepareWindow(onDraw)
     layer = MOAILayer2D.new()
     layer:setViewport(viewport)
     MOAISim.pushRenderPass(layer)
- 
+
     return layer
 end
 
@@ -71,11 +71,11 @@ function callbackConfiguration(onClickLeft, onClickRight, pointerCallback, onKey
     if (MOAIInputMgr.device.keyboard) then
         MOAIInputMgr.device.keyboard:setCallback(onKeyPress)
     end
-    
+
     if (onDraw and layer) then
-        scriptDeck = MOAIScriptDeck.new ()
-        scriptDeck:setRect (0, 0, 1, 1)
-        scriptDeck:setDrawCallback (onDraw)
+        scriptDeck = MOAIScriptDeck.new()
+        scriptDeck:setRect(0, 0, 1, 1)
+        scriptDeck:setDrawCallback(onDraw)
 
         prop = MOAIProp2D.new()
         prop:setDeck(scriptDeck)
@@ -86,15 +86,15 @@ end
 function mainLoop()
     mainThread = MOAIThread.new()
     mainThread:run(
-      function ()
-        timer0 = os.clock()
-        while true do
-            timer1 = os.clock()
-            time_elapsed = math.min(timer1-timer0, 1/30)
-            onUpdate(time_elapsed)
-            timer0 = timer1
-            coroutine.yield()
+        function()
+            timer0 = os.clock()
+            while true do
+                timer1 = os.clock()
+                time_elapsed = math.min(timer1 - timer0, 1 / 30)
+                onUpdate(time_elapsed)
+                timer0 = timer1
+                coroutine.yield()
+            end
         end
-      end
     )
 end
